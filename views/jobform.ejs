@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Form</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <h1>Input Job Data</h1>
+    <form action="/submit-job" method="POST">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="job_title" required><br><br>
+        <label for="url">URL:</label>
+        <input type="url" id="url" name="job_url" required><br><br>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="job_location" required><br><br>
+        <label for="company">Company:</label>
+        <select id="company" name="job_company" required>
+            <% companies.forEach(function(company) { %>
+                <option value="<%= company.id %>"><%= company.name %></option>
+            <% }); %>
+        </select><br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

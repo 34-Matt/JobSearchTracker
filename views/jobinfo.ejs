@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company Info</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <h1><%= render.app.title %></h1>
+    <div class="info">
+        <p>Located at <%= render.app.location %></p>
+        <p>Provided by <%= render.app.name %></p>
+        <p>Job information found <a href="<%= render.app.url %>"> here </a></p>
+        <form>
+            <label for="status">Update Status:</label>
+            <select id="status" name="status">
+                <%
+                render.enum.getAllStatus().forEach(function(status) {
+                    var selected = ( render.app.status == status ) ? "selected" : "";
+                    %><option value="<%= status %>" <%=selected %>><%= render.enum.getStatusText(status) %></option><%
+                })
+                %>
+            </select>
+            <button type="submit">Update Status</button>
+        </form>
+    </div>
+</body>
+</html>

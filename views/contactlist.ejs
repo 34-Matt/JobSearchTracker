@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact List</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <h1>Contact List</h1>
+    <ul>
+        <% contacts.forEach(function(contact) { %>
+            <li><%= contact.name %>
+            <% if (contact.email) { %>
+                <a href="mailto:<%= contact.email %>">- Email</a>
+            <% } if (contact.phone) { %>
+                <a href="tel:<%= contact.phone %>">- Phone</a>
+            <% } %>
+            </li>
+        <% }); %>
+    </ul>
+    <button onclick="window.location.href='/contact-form'">Add Contact</button>
+</body>
+</html>

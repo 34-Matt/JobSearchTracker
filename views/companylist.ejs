@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company List</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <h1>Company List</h1>
+    <ul>
+        <% companies.forEach(function(company) { %>
+            <li><a href="<%= company.url %>"><%= company.name %></a></li>
+        <% }); %>
+    </ul>
+    <button onclick="window.location.href='/company-form'">Add Company</button>
+</body>
+</html>

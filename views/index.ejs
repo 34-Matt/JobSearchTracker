@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Applied Jobs</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <h1>Applied Jobs</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Position</th>
+                <th>Date Applied</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="applicationsTableBody">
+            <% applications.forEach(function(application) { %>
+                <tr>
+                    <td><%= application.name %></td>
+                    <td><a href="/job-info/<%= application.id %>"><%= application.title %></a></td>
+                    <td><%= application.submissiondate %></td>
+                    <td><%= application.status %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <button onclick="window.location.href='/job-form'">Add New Job</button>
+</body>
+</html>
