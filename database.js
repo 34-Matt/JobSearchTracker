@@ -1,6 +1,14 @@
 const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs');
 const { application } = require('express');
 
+fs.mkdir('config', { recursive: true }, (err) => {
+    if (err) {
+        console.error('Error creating config directory:', err);
+    } else {
+        console.log('Config directory is ready.');
+    }
+});
 const dbName = 'config/database.db';
 
 // Open a connection to the database
