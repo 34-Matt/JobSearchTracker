@@ -11,7 +11,7 @@
         <p>Located at <%= render.app.location %></p>
         <p>Provided by <%= render.app.name %></p>
         <p>Job information found <a href="<%= render.app.url %>"> here </a></p>
-        <form>
+        <form action="/job-info/<%= render.app.id %>" method="POST">
             <label for="status">Update Status:</label>
             <select id="status" name="status">
                 <%

@@ -36,7 +36,6 @@ app.get('/job-info/:jobid', (req, res) => {
             console.error('Application not found for ID:', req.params.jobid);
             res.status(404).send('Application not found');
         } else {
-            console.log(application);
             const render = {
                 app: application,
                 enum: objectmanager.StatusEnum
@@ -46,16 +45,17 @@ app.get('/job-info/:jobid', (req, res) => {
     });
 });
 
-app.post('/job-info/:jobid', (req, res) => {
-    const { new_status } = req.body;
-    const { id } = req.params.jobid;
+app.post('/job-info/:jobid', express.urlencoded({ extended: true }), (req, res) => {
+    const { status } = req.body;
+    const { jobid } = req.params;
+    console.log(`Updating application ID ${jobid} to new status: ${status}`);
 
-    crud.updateApplicationStatus(id, new_status, (err, application) => {
+    crud.updateApplicationStatus(jobid, status, (err, application) => {
         if (err) {
             console.error("Failed to update status");
             res.status(500).send("Failed to update status");
         } else {
-            res.redirect('/job-info/:jobid')
+            res.redirect('/job-info/'+jobid);
         }
     });
 });

@@ -192,7 +192,8 @@ const getApplicationInfo = (id, callback) => {
   applied.title,
   applied.url,
   applied.location,
-  applied.status
+  applied.status,
+  applied.id
   FROM
   applied
   INNER JOIN
@@ -215,9 +216,9 @@ const displayApplications = (callback) => {
   FROM
   applied
   INNER JOIN
-  companies ON applied.companyid = companies.id;
+  companies ON applied.companyid = companies.id
   WHERE
-  applied.status > 1
+  applied.status > 0
   `;
   
   db.all(query, [], callback);
