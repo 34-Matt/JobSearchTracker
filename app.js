@@ -62,7 +62,7 @@ app.post('/job-info/:jobid', express.urlencoded({ extended: true }), (req, res) 
 
 
 app.get('/job-form', (req, res) => {
-    crud.getCompanies((err, companies) => {
+    crud.getCompaniesOrdered((err, companies) => {
         if (err) {
             res.status(500).send('Error retrieving companies');
         } else {

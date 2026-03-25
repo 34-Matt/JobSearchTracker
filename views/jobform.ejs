@@ -16,6 +16,7 @@
         <input type="text" id="location" name="job_location" required><br><br>
         <label for="company">Company:</label>
         <select id="company" name="job_company" required>
+            <option value="" disabled selected hidden>Please Choose...</option>
             <% companies.forEach(function(company) { %>
                 <option value="<%= company.id %>"><%= company.name %></option>
             <% }); %>
