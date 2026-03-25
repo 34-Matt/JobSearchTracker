@@ -2,7 +2,29 @@ body {
     margin-top: 60px;
     margin-left: 20px;
     padding: 0;
+    background-color: #747474
 }
+
+
+p {
+  font-size: 18px;
+}
+
+a {
+  color: lightblue;
+  font-size: 18px;
+}
+a:link, a:visited {
+  text-decoration: none;
+}
+a:hover, a:active {
+  text-decoration: underline;
+}
+
+label {
+  font-size: 18px;
+}
+
 
 table {
     border-collapse: collapse;
@@ -14,14 +36,22 @@ tr {
 
 th {
     text-align: left;
+    font-size: 24px;
+}
+
+td {
+  font-size: 18px;
 }
 
 th, td {
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     padding-left: 8px;
     padding-right: 8px;
 }
+
+
+
 
 nav ul {
   list-style-type: none;
@@ -29,6 +59,7 @@ nav ul {
   padding: 0;
   overflow: hidden;
   background-color: #333333;
+  border-color: white;
   position: fixed;
   top: 0;
   width: 100%;
@@ -38,18 +69,15 @@ nav ul li {
   float: left;
 }
 
-nav ul li a {
+a.nav-link {
   display: block;
   color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  font-size: 20px;
 }
 
-nav ul li a:hover:not(.active) {
+a.nav-link:hover:not(.active) {
   background-color: #111;
-}
-
-nav ul li a.active {
-  background-color: #04AA6D;
 }
