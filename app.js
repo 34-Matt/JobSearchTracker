@@ -14,12 +14,15 @@ app.use(express.static(__dirname + '/public'));
 // Routes
 // Applied Jobs
 app.get('/', (req, res) => {
-    crud.displayApplications((err, applications) => {
+    const daysold = parseInt(req.query.daysold) || 60;
+
+    crud.displayApplications(daysold, (err, applications) => {
         if (err) {
             console.error('Error retrieving applications:', err);
             res.status(500).send('Error retrieving applications');
         } else {
             for (let i = 0; i < applications.length; i++) {
+                applications[i].submissiondate = new Date(applications[i].submissiondate).toLocaleDateString().split(',')[0];
                 applications[i].status = objectmanager.StatusEnum.getStatusText(applications[i].status);
             }
             res.render('index', { applications });

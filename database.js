@@ -71,7 +71,7 @@ const addApplication = (application, callback) => {
     const sql_statement = db.prepare(`INSERT INTO applied (title, url, companyid, location, submissiondate, status, lastupdate) VALUES (?, ?, ?, ?, ?, ?, ?)`);
 
     const { title, url, companyid, location} = application;
-    const submissiondate = new Date().toLocaleString().split(',')[0];
+    const submissiondate = new Date().toISOString();
     const status = 1; // Default status is "Applied"
     const lastupdate = submissiondate;
 
@@ -205,23 +205,31 @@ const getApplicationInfo = (id, callback) => {
 };
 
 // Format mixing for page rendering
-const displayApplications = (callback) => {
+const displayApplications = (daysold, callback) => {
+  const daysoldDate = new Date();
+  daysoldDate.setDate(daysoldDate.getDate() - daysold);
+  const formattedDate = daysoldDate.toISOString();
+
   const query = `
   SELECT
   companies.name,
   applied.title,
   applied.submissiondate,
   applied.status,
-  applied.id
+  applied.id,
+  applied.lastupdate
   FROM
   applied
   INNER JOIN
   companies ON applied.companyid = companies.id
   WHERE
-  applied.status > 0
+  applied.status >= 1
+  AND
+  applied.lastupdate >= ?
+  ORDER BY
+  applied.submissiondate DESC
   `;
-  
-  db.all(query, [], callback);
+  db.all(query, [formattedDate], callback);
 };
 
 const getApplicationByCompanyId = (companyid, callback) => {
