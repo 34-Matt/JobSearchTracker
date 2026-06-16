@@ -9,7 +9,7 @@
     <h1>Company List</h1>
     <ul>
         <% companies.forEach(function(company) { %>
-            <li><a href="<%= company.url %>"><%= company.name %></a></li>
+            <li><a href="<%= company.url %>" target="_blank" rel="noopener noreferrer"><%= company.name %></a></li>
         <% }); %>
     </ul>
     <button onclick="window.location.href='/company-form'">Add Company</button>

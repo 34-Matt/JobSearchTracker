@@ -10,7 +10,7 @@
     <div class="info">
         <p>Located at <%= render.app.location %></p>
         <p>Provided by <%= render.app.name %></p>
-        <p>Job information found <a href="<%= render.app.url %>"> here </a></p>
+        <p>Job information found <a href="<%= render.app.url %>" target="_blank" rel="noopener noreferrer"> here </a></p>
         <form action="/job-info/<%= render.app.id %>" method="POST">
             <label for="status">Update Status:</label>
             <select id="status" name="status">
