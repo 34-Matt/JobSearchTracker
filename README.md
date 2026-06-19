@@ -1,5 +1,14 @@
-# JobSearchTracker
-While searching for jobs, wanted to further my experience with javascript and sql.
+<h1 align="center"> JobSearchTracker </h1>
+<p align="center">
+    <img src="https://img.shields.io/badge/Node.js-25.8.0-5FA04E?style=flat-square&logo=nodedotjs" />
+    <img src="https://img.shields.io/badge/SQLite-3.46.1-003B57?style=flat-square&logo=sqlite" />
+    <img src="https://img.shields.io/badge/EJS-4.0.1-B4CA65?style=flat-square&logo=ejs" />
+    <img src="https://img.shields.io/badge/Express.js-5.2.1-000000?style=flat-square&logo=express" />
+    <img src="https://img.shields.io/badge/Nodemon-3.1.14-76D04B?style=flat-square&logo=nodemon" />
+</p>
+Applying for a job is difficult.
+There is no guarentee that you will be taken into a position, so applying to multiple open position across multiple companies is expected.
+This project is designed to help keep track of your applications, supply one place to store your information.
 
 ## Install
 
@@ -38,7 +47,7 @@ The tracker is split into the following sections:
 | [Contact Form](#contacts-and-contact-form) | /contact-form | Not fully implemented. |
 
 ### Home Page
-![Home Page](doc\MainPage.png "Main Page")
+![Home Page](doc/MainPage.png "Main Page")
 
 This is the main landing page for the tracker.
 This page displays general information about all applied job posting.
@@ -69,12 +78,46 @@ The __Position__ section also includes a link that [job information page](#job-i
 This button send you to the [job form](#job-form).
 
 ### Job Info
+![Job Info](doc/SavedJob.png "Job Info")
+
+This page shows a more detailed description of the job application.
+This includes important information, such as:
+
+* __Job Title:__ The title of the applied position.
+* __Location:__ Where job is located.
+* __Company:__ The name of the company with the job posting.
+* __Posting:__ A link to the original job posting.
+* __Status:__ The current status of the application.
 
 ### Job Form
+![Job Form](doc/NewJob.png "Job Form")
+
+This is the page to add new applications.
+The following information is should be provided:
+
+* __Job Title:__ The title of the applied position.
+* __Posting:__ The URL to the posting.
+* __Location:__ Where the job is located.
+* __Company:__ The company with the job posting.
+
+If the company does not appear in the drop-down menu, it likely has not be added to the tracker.
+The company should first be registered through the [company form](#company-form).
 
 ### Companies Page
+![Company List](doc/CompanyList.png "Company List")
+
+This page displays all companies that are being tracked.
+Each entry shows the name of the company and the link to the company's website.
+The list is in alphabetical order.
 
 ### Company Form
+![Company Form](doc/NewCompany.png "Company Form")
+
+The page to add new companies to track. The following information is expected:
+
+* __Name:__ The name of the company.
+* __URL:__ A link to the company's website. It is recommend that this either be the landing page, career page, or contact page.
+* __Industry:__ The main industry/specialty of the company. Recommended for future filtering. 
 
 ### Contacts and Contact Form
 
