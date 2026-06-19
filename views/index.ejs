@@ -7,26 +7,59 @@
 <body>
     <%- include('partials/navbar') %>
     <h1>Applied Jobs</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Company</th>
-                <th>Position</th>
-                <th>Date Applied</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody id="applicationsTableBody">
-            <% applications.forEach(function(application) { %>
+    <div class="center">
+        <form action="/" method="POST">
+            <table>
                 <tr>
-                    <td><%= application.name %></td>
-                    <td><a href="/job-info/<%= application.id %>"><%= application.title %></a></td>
-                    <td><%= application.submissiondate %></td>
-                    <td><%= application.status %></td>
+                    <th><label for="days">Days Old</label></th>
+                    <th><label for="status">Minimum Status</label></th>
+                    <th></th>
                 </tr>
-            <% }); %>
-        </tbody>
-    </table>
-    <button onclick="window.location.href='/job-form'">Add New Job</button>
+                <tr>
+                    <td>
+                        <input type="number" value="<%= render.daysold %>" step="1" id="days" name="days">
+                    </td>
+                    <td>
+                        <select id="status" name="status">
+                        <%
+                        render.enum.getAllStatus().forEach(function(status) {
+                            var selected = ( render.status == status ) ? "selected" : "";
+                            %><option value="<%= status %>" <%=selected %>><%= render.enum.getStatusText(status) %></option><%
+                        })
+                        %>
+                    </select>
+                    </td>
+                    <td>
+                        <button type="submit">Filter</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Position</th>
+                    <th>Date Applied</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="applicationsTableBody">
+                <% applications.forEach(function(application) { %>
+                    <tr>
+                        <td><%= application.name %></td>
+                        <td><a href="/job-info/<%= application.id %>"><%= application.title %></a></td>
+                        <td><%= application.submissiondate %></td>
+                        <td><%= application.status %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <button onclick="window.location.href='/job-form'">Add New Job</button>
+    </div>
 </body>
 </html>

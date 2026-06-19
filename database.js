@@ -205,12 +205,16 @@ const getApplicationInfo = (id, callback) => {
 };
 
 // Format mixing for page rendering
-const displayApplications = (daysold, callback) => {
-  const daysoldDate = new Date();
-  daysoldDate.setDate(daysoldDate.getDate() - daysold);
-  const formattedDate = daysoldDate.toISOString();
+const displayApplications = (daysold, minimumstatus, callback) => {
+  let formattedDate;
+  if (daysold !== undefined) {
+    const daysoldDate = new Date();
+    daysoldDate.setDate(daysoldDate.getDate() - daysold);
+    formattedDate = daysoldDate.toISOString();
+  }
+  //console.log(`Displaying applications with minimum status ${minimumstatus} and days old ${daysold}`);
 
-  const query = `
+  let query = `
   SELECT
   companies.name,
   applied.title,
@@ -222,14 +226,43 @@ const displayApplications = (daysold, callback) => {
   applied
   INNER JOIN
   companies ON applied.companyid = companies.id
+  `;
+
+  if ((minimumstatus !== undefined) && (daysold !== undefined)) {
+    query += `
   WHERE
-  applied.status >= 1
+  applied.status >= ?
   AND
   applied.lastupdate >= ?
   ORDER BY
   applied.submissiondate DESC
   `;
-  db.all(query, [formattedDate], callback);
+  input = [minimumstatus, formattedDate];
+  }else if (minimumstatus !== undefined) {
+    query += `
+  WHERE
+  applied.status >= ?
+  ORDER BY
+  applied.submissiondate DESC
+  `;
+  input = [minimumstatus];
+  } else if (daysold !== undefined) {
+    query += `
+  WHERE
+  applied.lastupdate >= ?
+  ORDER BY
+  applied.submissiondate DESC
+  `;
+  input = [formattedDate];
+  } else {
+    query += `
+  ORDER BY
+  applied.submissiondate DESC
+  `;
+  input = [];
+  }
+
+  db.all(query, input, callback);
 };
 
 const getApplicationByCompanyId = (companyid, callback) => {

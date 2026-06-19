@@ -14,9 +14,11 @@ app.use(express.static(__dirname + '/public'));
 // Routes
 // Applied Jobs
 app.get('/', (req, res) => {
-    const daysold = parseInt(req.query.daysold) || 60;
+    const daysold = parseInt(req.query.daysold) || undefined;
+    const minimumstatus = parseInt(req.query.minimumstatus) || undefined;
 
-    crud.displayApplications(daysold, (err, applications) => {
+
+    crud.displayApplications(daysold, minimumstatus, (err, applications) => {
         if (err) {
             console.error('Error retrieving applications:', err);
             res.status(500).send('Error retrieving applications');
@@ -25,9 +27,21 @@ app.get('/', (req, res) => {
                 applications[i].submissiondate = new Date(applications[i].submissiondate).toLocaleDateString().split(',')[0];
                 applications[i].status = objectmanager.StatusEnum.getStatusText(applications[i].status);
             }
-            res.render('index', { applications });
+
+            const render = {
+                status: minimumstatus ?? 1,
+                daysold: daysold ?? 30,
+                enum: objectmanager.StatusEnum
+            }
+            res.render('index', { applications: applications, render: render });
         }
     });
+});
+
+app.post('/', express.urlencoded({ extended: true }), (req, res) => {
+    const { days, status } = req.body;
+    console.log(`Filtering applications older than ${days} days and with minimum status of ${status}`);
+    res.redirect(`/?daysold=${days}&minimumstatus=${status}`);
 });
 
 app.get('/job-info/:jobid', (req, res) => {
